@@ -18,7 +18,5 @@ def canUnlockAll(boxes):
                 res = True
         else:
             res = False
-    
-    print(l_keys)
 
     return res
