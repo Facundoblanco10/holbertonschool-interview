@@ -5,18 +5,13 @@
 
 def canUnlockAll(boxes):
     """return True if all boxes can be unlocked"""
-    res = True
-    l_keys = []
-    for i in boxes[0]:
-        l_keys.append(i)
-    for idx, box in enumerate(boxes):
-        if idx == 0:
-            continue
-        elif idx in l_keys:
-            for i in box:
-                l_keys.append(i)
-                res = True
-        else:
-            res = False
+    unlocked = [False] * len(boxes)
+    unlocked[0] = True
+    keys = boxes[0]
 
-    return res
+    for key in keys:
+        if key < len(boxes) and not unlocked[key]:
+            unlocked[key] = True
+            keys += boxes[key]
+
+    return all(unlocked)
