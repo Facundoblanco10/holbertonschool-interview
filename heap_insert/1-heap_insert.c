@@ -10,18 +10,48 @@
 
 heap_t *heap_insert(heap_t **root, int value)
 {
-    heap_t *new_node;
-    heap_t *current_node = *root;
+    heap_t *new_node, *current;
 
     new_node = malloc(sizeof(heap_t));
     if (new_node == NULL)
         return (NULL);
     new_node->n = value;
-    if (current_node == NULL)
+    new_node->parent = NULL;
+    new_node->left = NULL;
+    new_node->right = NULL;
+
+    if (*root == NULL)
     {
-        new_node->parent = NULL;
-        new_node->left = NULL;
-        new_node->right = NULL;
-        return new_node;
+        *root = new_node;
+        return (new_node);
     }
+    current = *root;
+    while (current->left != NULL && current->right != NULL)
+    {
+        if (current->left != NULL && current->right != NULL)
+            current = current->left;
+        else if (current->left != NULL)
+            current = current->right;
+    }
+
+    new_node->parent = current;
+
+    if (current->left == NULL)
+        current->left = new_node;
+    else
+        current->right = new_node;
+
+    while (new_node->parent != NULL && new_node->n > new_node->parent->n)
+    {
+        swap_nodes(new_node->n, new_node->parent->n);
+        new_node = new_node->parent;
+    }
+
+    return (new_node);
+}
+void swap_nodes(int n1, int n2)
+{
+    int temp = n1;
+    n1 = n2;
+    n2 = temp;
 }
