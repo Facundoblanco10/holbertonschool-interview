@@ -10,43 +10,43 @@
 
 heap_t *heap_insert(heap_t **root, int value)
 {
-    heap_t *new_node, *current;
+	heap_t *new_node, *current;
 
-    new_node = malloc(sizeof(heap_t));
-    if (new_node == NULL)
-        return (NULL);
-    new_node->n = value;
-    new_node->parent = NULL;
-    new_node->left = NULL;
-    new_node->right = NULL;
+	new_node = malloc(sizeof(heap_t));
+	if (new_node == NULL)
+		return (NULL);
+	new_node->n = value;
+	new_node->parent = NULL;
+	new_node->left = NULL;
+	new_node->right = NULL;
 
-    if (*root == NULL)
-    {
-        *root = new_node;
-        return (new_node);
-    }
-    current = *root;
-    while (current->left != NULL && current->right != NULL)
-    {
-        if (current->left != NULL && current->right != NULL)
-            current = current->left;
-        else if (current->left != NULL)
-            current = current->right;
-    }
+	if (*root == NULL)
+	{
+		*root = new_node;
+		return (new_node);
+	}
+	current = *root;
+	while (current->left != NULL && current->right != NULL)
+	{
+		if (current->left != NULL && current->right != NULL)
+			current = current->left;
+		else if (current->left != NULL)
+			current = current->right;
+	}
 
-    new_node->parent = current;
-    if (current->left == NULL)
-        current->left = new_node;
-    else
-        current->right = new_node;
+	new_node->parent = current;
+	if (current->left == NULL)
+		current->left = new_node;
+	else
+		current->right = new_node;
 
-    while (new_node->parent != NULL && new_node->n > new_node->parent->n)
-    {
-        swap_nodes(new_node->n, new_node->parent->n);
-        new_node = new_node->parent;
-    }
+	while (new_node->parent != NULL && new_node->n > new_node->parent->n)
+	{
+		swap_nodes(new_node->n, new_node->parent->n);
+		new_node = new_node->parent;
+	}
 
-    return (new_node);
+	return (new_node);
 }
 
 /**
@@ -56,8 +56,8 @@ heap_t *heap_insert(heap_t **root, int value)
  */
 void swap_nodes(int n1, int n2)
 {
-    int temp = n1;
+	int temp = n1;
 
-    n1 = n2;
-    n2 = temp;
+	n1 = n2;
+	n2 = temp;
 }
